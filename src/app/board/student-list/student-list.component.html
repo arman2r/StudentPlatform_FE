@@ -1,0 +1,38 @@
+<div class="main">
+
+  <div class="example-action-buttons">
+    <button mat-button (click)="accordion().openAll()">Expandir Todos</button>
+    <button mat-button (click)="accordion().closeAll()">Collapsar Todos</button>
+  </div>
+
+  <h3>Actualmente tienes {{counterStudents()}} {{this.userType === 'student' ? 'compañeros de clase' : 'alumnos asignados'}}</h3>
+  <mat-accordion class="example-headers-align" multi>
+    @for (partner of studentList(); track partner; let idx = $index, e = $even) {
+    <mat-expansion-panel [expanded]="idx === 0" (opened)="idx" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title> {{partner.subject}} </mat-panel-title>
+        <mat-panel-description>
+          {{partner.partners?.length}}
+          @if(this.userType === 'student'){
+          {{(partner.partners?.length ?? 1) > 1 ? 'compañeros' : 'compañero'}}
+          } @else {
+          {{(partner.partners?.length ?? 1) > 1 ? 'alumnos' : 'alumno'}}
+          }
+
+          <mat-icon>groups</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <mat-list>
+        @for (student of partner.partners; track student) {
+        <mat-list-item role="listitem">
+          <mat-icon matListItemIcon>face</mat-icon>
+          <div matListItemTitle>{{student}}</div>
+        </mat-list-item>
+        }
+      </mat-list>
+
+    </mat-expansion-panel>
+    }
+  </mat-accordion>
+</div>

@@ -1,0 +1,26 @@
+<mat-card class="example-card" appearance="outlined">
+  <mat-card-header>
+    <mat-card-title>Bienvenido Profesor</mat-card-title>
+  </mat-card-header>
+  <form [formGroup]="loginForm" (submit)="onSubmit($event)">
+    <mat-card-content>
+      <p>Ingresa aqui tus datos para poder acceder a tus asignaciones</p>
+ 
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Correo</mat-label>
+        <input matInput formControlName="Email" placeholder="Placeholder">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Contraseña</mat-label>
+        <input matInput type="password" formControlName="PasswordHash" placeholder="Placeholder">
+      </mat-form-field>
+
+    </mat-card-content>
+    <mat-card-actions>                  
+      <button mat-stroked-button type="submit" [disabled]="!loginForm.valid || loading">Iniciar sesión</button>
+      <p>Si aun no tienes una cuenta, Registrate aquí</p>
+      <a mat-button type="button" [disabled]="loading" routerLink="/register-teacher">Registrarme</a>
+    </mat-card-actions>
+  </form>
+</mat-card>

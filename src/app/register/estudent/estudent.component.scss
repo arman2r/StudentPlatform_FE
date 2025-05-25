@@ -1,0 +1,15 @@
+mat-card{
+    margin: 0 20px 0 20px;
+    max-width: 400px;
+    mat-form-field{
+        width: 100%;
+    }
+    mat-card-actions{
+        display: flex;
+        flex-flow: column;
+        justify-content: space-between;
+        mat-button{
+            --width: 100%;
+        }
+    }
+}

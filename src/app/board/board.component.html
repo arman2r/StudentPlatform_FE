@@ -1,0 +1,37 @@
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer #drawer class="example-sidenav" [mode]="isMobile() ? 'over' : 'side'" [opened]="!isMobile() && true">
+    <mat-nav-list role="list">
+      <mat-list-item>
+        <mat-icon matListItemIcon>face</mat-icon>
+        <div matListItemTitle>Hola!</div>
+        <div matListItemLine>{{user?.name}}</div>
+      </mat-list-item>
+      <div class="example-spacer"></div>
+      <mat-list-item role="listitem">
+        <a routerLink="register-subject">
+          Registrar materias
+        </a>
+      </mat-list-item>
+      <mat-list-item role="listitem">
+        <a routerLink="student-list">Ver {{this.user?.role === 'Student' ? 'compañeros de clase' : 'alumnos asignados'}} </a>
+      </mat-list-item>
+      <div class="example-spacer"></div>
+      <mat-list-item role="listitem" (click)="logout()">Cerrar Sesión</mat-list-item>
+    </mat-nav-list>
+  </mat-drawer>
+
+  <div class="example-sidenav-content">
+
+    <mat-toolbar>
+      <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon"
+        (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>Student Platform</span>
+      <span class="example-spacer"></span>
+    </mat-toolbar>
+
+    <router-outlet />
+  </div>
+
+</mat-drawer-container>

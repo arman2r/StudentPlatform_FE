@@ -1,0 +1,53 @@
+.main {
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    box-sizing: border-box;
+}
+
+mat-card {
+    width: 100%;
+    position: relative;
+
+    mat-card-content {
+        padding-bottom: 20px;
+    }
+
+    mat-card-actions {
+        padding: 20px;
+        justify-content: end;
+        position: sticky;
+        bottom: 0;
+        background-color: white;
+    }
+}
+
+mat-selection-list {
+    width: 100%;
+    padding: 0 0 0 0;
+    margin: 0 0 0 0;
+
+    mat-list-option {
+        margin: 10px 0
+    }
+}
+
+.content-list {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.title-list {
+    display: flex;
+    flex-flow: column;
+}
+
+.example-spacer {
+    flex: 1 1 auto;
+}
