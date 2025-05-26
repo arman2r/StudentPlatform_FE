@@ -1,6 +1,26 @@
 # StudentPlatform
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.13.
+This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.13 with Node v22.15.0.
+
+## Este proyecto soporta Docker
+- para evitar posibles problemas con dependencias puedes clonar el proyecto y ejecutar los comando
+```bash
+docker build -t student-frontend .
+```
+- una vez termine los procesos puedes ejecutar el comando:
+```bash
+docker run -d -p 4300:80 student-frontend
+```
+- para que ejecute la imagen bajo el puerto 4300
+- Si ejecutaste el backend con Docker, puedes interactuar registrando una cuenta tipo estudiante o loguearte con una cuenta ya existente de prueba
+- Para ingresar como estudiante:
+leonardo@gmail.com
+Leonardo123--
+- para ingresar como profesor:
+- ** http://localhost:4300/login-teacher
+julian@gmail.com
+Julian123--
+
 
 ## Development server
 
