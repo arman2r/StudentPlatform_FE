@@ -3,7 +3,7 @@ import { computed, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, tap, throwError } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 import { IAuthState } from '../../interfaces/IAuthState.interface';
 
 @Injectable({

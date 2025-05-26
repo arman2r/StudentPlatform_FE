@@ -19,7 +19,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     MatFormFieldModule,
     ReactiveFormsModule,
     FormsModule,
-    RouterLink
+    RouterLink,
+    MatProgressBarModule
   ],
   templateUrl: './student.component.html',
   styleUrl: './student.component.scss'

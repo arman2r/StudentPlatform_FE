@@ -18,7 +18,11 @@
 
     </mat-card-content>
     <mat-card-actions>
+      @if(loading) {
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      } @else {
       <button mat-stroked-button type="submit" [disabled]="!loginForm.valid || loading">Iniciar sesión</button>
+      }
       <p>Si aun no tienes una cuenta, Registrate aquí</p>
       <a mat-button type="button" [disabled]="loading" routerLink="/register-student">Registrarme</a>
     </mat-card-actions>
