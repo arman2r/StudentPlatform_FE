@@ -27,6 +27,7 @@ Thumbs.db
 # .env.local
 # .env.*.local
 
+
 # Build output (si se genera en local)
 # dist
 # build
