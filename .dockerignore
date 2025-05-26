@@ -1,0 +1,32 @@
+# Node modules (si se instalan dentro del contenedor)
+node_modules
+# Logs
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+pnpm-debug.log
+
+# Editor/IDE
+.vscode
+.idea
+*.suo
+*.ntvs_analysis.dat
+*.njsproj
+*.sln
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git
+.gitignore
+
+# Environment files (opcional, si no quieres copiarlos al contenedor)
+# .env
+# .env.local
+# .env.*.local
+
+# Build output (si se genera en local)
+# dist
+# build
