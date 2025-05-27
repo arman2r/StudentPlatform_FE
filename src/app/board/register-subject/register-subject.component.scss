@@ -31,7 +31,10 @@ mat-selection-list {
     margin: 0 0 0 0;
 
     mat-list-option {
-        margin: 10px 0
+        margin: 10px 0;
+        @media (max-width: 768px) {
+            height: inherit;
+        }
     }
 }
 
@@ -41,6 +44,12 @@ mat-selection-list {
     justify-content: space-between;
     align-items: center;
     box-sizing: border-box;
+    @media (max-width: 768px) {
+        flex-direction: column;
+        align-items: start;
+        justify-content: start;
+        align-items: start;
+    }
 }
 
 .title-list {
