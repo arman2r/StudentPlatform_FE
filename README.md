@@ -3,7 +3,7 @@
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.13 with Node v22.15.0.
 
 ## Este proyecto soporta Docker
-- Recuerda ejecutar Docker desktop para evitar inconveniento con los comando a continuación.
+- Recuerda ejecutar Docker desktop para evitar inconvenientes con los comando a continuación.
 - para evitar posibles problemas con dependencias puedes clonar el proyecto y ejecutar los comando
 ```bash
 docker build -t student-frontend .
