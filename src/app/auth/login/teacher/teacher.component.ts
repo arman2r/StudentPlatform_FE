@@ -6,11 +6,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router, RouterLink } from '@angular/router';
+import { Router} from '@angular/router';
 import { AuthService } from '../../../core/auth/auth.service';
+import { MatIconModule } from '@angular/material/icon';
+import { ToggleLoginComponent } from "../toggle-login/toggle-login.component";
 
 @Component({
   selector: 'app-teacher',
+  standalone: true,
   imports: [
     MatCardModule,
     MatButtonModule,
@@ -19,8 +22,9 @@ import { AuthService } from '../../../core/auth/auth.service';
     MatFormFieldModule,
     ReactiveFormsModule,
     FormsModule,
-    RouterLink
-  ],
+    MatIconModule,
+    ToggleLoginComponent
+],
   templateUrl: './teacher.component.html',
   styleUrl: './teacher.component.scss'
 })

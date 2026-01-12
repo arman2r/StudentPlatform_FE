@@ -1,12 +1,13 @@
 <div class="main">
   <h3>Bienvenido {{userType === 'student' ? 'estudiante' : 'profesor'}}</h3>
-  <p>Aquí puedes seleccionar las materias que vas a impartir o estudiar</p>
+  <p>Aquí puedes seleccionar las materias que vas a {{userType === 'student' ? 'estudiar' : 'impartir'}}</p>
   <mat-card appearance="outlined">
     <mat-card-content>
       <form [formGroup]="subjectForm">
-        <mat-selection-list #subjects [formControl]="subjectControl" name="Subject">
+        <mat-selection-list #subjects [formControl]="subjectControl" name="Subject"
+          (selectionChange)="onSelectionListChange($event)">
           @for (subject of SubjectList; track subject) {
-          <mat-list-option value="{{subject.id}}" (click)="validAssigned(subject.id)">
+          <mat-list-option [value]="subject.id?.toString()">
             <div class="content-list">
               <div class="title-list">
                 <span>{{subject.name}}</span>

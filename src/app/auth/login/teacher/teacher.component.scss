@@ -1,16 +1,132 @@
-mat-card{
-    margin: 0 20px 0 20px;
+mat-card {
+    margin: 0 0px 0 0px;
     max-width: 400px;
-    mat-form-field{
+    height: 100%;
+    border-radius: 0px;
+    padding: 20px;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    box-shadow: -24px 1px 0px -25px rgba(0, 0, 0, 0.76);
+    -webkit-box-shadow: -24px 1px 0px -25px rgba(0, 0, 0, 0.76);
+    -moz-box-shadow: -24px 1px 0px -25px rgba(0, 0, 0, 0.76);
+    transition: box-shadow 0.3s ease-in-out;
+
+    mat-card-title {
+        text-align: center;
+        font-size: 28px;
+        font-weight: 500;
+    }
+
+    mat-form-field {
         width: 100%;
     }
-    mat-card-actions{
+
+    mat-card-actions {
         display: flex;
         flex-flow: column;
         justify-content: space-between;
         padding-bottom: 20px;
-        mat-button{
+
+        mat-button {
             --width: 100%;
+        }
+    }
+
+    &:hover {
+        box-shadow: -19px -2px 38px -8px rgba(0, 0, 0, 0.75);
+        -webkit-box-shadow: -19px -2px 38px -8px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: -19px -2px 38px -8px rgba(0, 0, 0, 0.75);
+    }
+}
+
+.main-login {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    width: 100vw;
+    height: 100dvh;
+    position: relative;
+    overflow: hidden;
+
+    // Pseudo-elemento para la imagen de fondo
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('/teacher-wallpaper.jpg');
+        background-size: cover;
+        background-position: center;
+        z-index: 0;
+        transition: filter 0.5s ease; // Opcional para otros efectos
+    }
+
+    // Pseudo-elemento para el backdrop-filter
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        backdrop-filter: blur(0px);
+        -webkit-backdrop-filter: blur(0px);
+        transition: backdrop-filter 1s ease, -webkit-backdrop-filter 1s ease;
+        z-index: 1;
+        pointer-events: none; // Importante: no bloquea interacciones
+    }
+
+    mat-card {
+        margin: 0 0px 0 0px;
+        max-width: 400px;
+        height: 100%;
+        border-radius: 0px;
+        padding: 20px;
+        box-sizing: border-box;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        z-index: 2; // Encima de todo
+
+        mat-card-title {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 500;
+        }
+
+        mat-form-field {
+            width: 100%;
+        }
+
+        mat-card-actions {
+            display: flex;
+            flex-flow: column;
+            justify-content: space-between;
+            padding-bottom: 20px;
+
+            button,
+            mat-button,
+            button[mat-button] {
+                width: 100%;
+            }
+        }
+    }
+
+    // Cuando el mat-card está siendo hover
+    &:has(mat-card:hover) {
+        &::after {
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        // Opcional: oscurecer el fondo también
+        &::before {
+            filter: brightness(0.9);
         }
     }
 }

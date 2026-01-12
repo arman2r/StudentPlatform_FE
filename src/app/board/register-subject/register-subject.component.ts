@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { MatListModule } from '@angular/material/list';
+import { MatListModule, MatSelectionListChange } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
@@ -33,7 +33,7 @@ export class RegisterSubjectComponent implements OnInit {
   subjectControl = new FormControl();
   userType!: string;
   private _snackbar = inject(MatSnackBar);
-  subjectStudenAssigned: any;
+  subjectStudenAssigned: any[] = [];
   subjectsAssigned!: string[];
 
   constructor(private subjectService: SubjectsService, private teacherService: TeacherService, private studentService: StudentService, private router: Router) { }
@@ -94,7 +94,7 @@ export class RegisterSubjectComponent implements OnInit {
               console.log('subjects student', student);
               // Extrae solo los IDs de las materias del estudiante y los setea en el control
               if (student.subjects?.length === 0) return
-              this.subjectStudenAssigned = student?.subjects;
+              this.subjectStudenAssigned = student.subjects as any[];
               const subjectIds = student.subjects?.map((subject: any) => subject?.subjectId?.toString());
               console.log('subjectIds', subjectIds);
               this.subjectsAssigned = subjectIds as string[];
@@ -123,12 +123,12 @@ export class RegisterSubjectComponent implements OnInit {
     if (this.userType === 'student') {
 
       this.studentService.getTeacherBySubject(selectedSubjects[0]).subscribe({
-        
+
         error: (err) => console.error('Error al obtener el profesor:', err),
       })
 
       const filterSelected = this.SubjectList.filter(subject => selectedSubjects.includes(subject.id?.toString()));
-      
+
       if (filterSelected.length > 3) {
         this._snackbar.open('No puedes seleccionar más de 3 materias', 'Cerrar');
         this.isLoading = false;
@@ -197,48 +197,87 @@ export class RegisterSubjectComponent implements OnInit {
     }
   }
 
-  validAssigned(subjectId: any) {
+  onSelectionListChange(event: MatSelectionListChange) {
+    // Normalmente solo cambia UNA opción
+    const option = event.options[0];
 
-    if (this.userType === 'teacher') {
-      if (this.subjectForm.value.subjects.length > 2) {
-        this._snackbar.open('No puedes seleccionar más de 2 materias', 'Cerrar');
-        this.subjectControl.setValue(
-          this.subjectControl.value.filter((id: string) => id !== subjectId.toString())
-        );
-        return
-      }
-      return
-    }
-    // Preguntamos si el usuario tiene mas de 3 materias asignadas
-    if (this.subjectForm.value.subjects.length > 3) {
-      this._snackbar.open('No puedes seleccionar más de 3 materias', 'Cerrar');
-      this.subjectControl.setValue(
-        this.subjectControl.value.filter((id: string) => id !== subjectId.toString())
-      );
-      return
+    const subjectId = Number(option.value);
+    const checked = option.selected;
+
+    console.log('subjectId:', subjectId);
+    console.log('checked:', checked);
+
+    if (!checked) {
+      this.onSubjectDeselected(subjectId);
     } else {
-
-      if (this.subjectForm.value.subjects.length < this.subjectsAssigned.length) return
-
-      this.studentService.getTeacherBySubject(Number(subjectId)).subscribe({
-        next: (teacher) => {
-          console.log('teacher', teacher);
-          const filterTeacher = this.subjectStudenAssigned.filter((item: ITeacherBySubject) => item.teacherId === teacher[0].teacherId);
-          console.log('filterTeacher', filterTeacher);
-          if (filterTeacher.length > 0) {
-            this._snackbar.open('No puedes asignar mas de una materia con el mismo profesor', 'Cerrar', {
-              duration: 5000,
-            });
-            this.subjectControl.setValue(
-              this.subjectControl.value.filter((id: string) => id !== subjectId.toString())
-            );
-            this.getSubjects();
-            this.loadSubjects();
-          }
-        },
-        error: (err) => console.error('Error al obtener el profesor:', err),
-      })
+      this.onSubjectSelected(subjectId);
     }
+  }
+
+  onSubjectDeselected(subjectId: number) {
+    console.log('Materia deseleccionada:', subjectId);
+
+    this.subjectStudenAssigned = this.subjectStudenAssigned.filter(
+      (item: any) => item.subjectId !== subjectId
+    );
+
+    this.subjectsAssigned = this.subjectsAssigned.filter(
+      (id: string) => id !== subjectId.toString()
+    );
+
+    console.log('Nuevo subjects assigned:', this.subjectStudenAssigned);
+  }
+
+  onSubjectSelected(subjectId: number) {
+
+    const selectedSubjects = this.subjectControl.value ?? [];
+
+    // Máximo 3 materias
+    if (selectedSubjects.length > 3) {
+      this._snackbar.open('No puedes seleccionar más de 3 materias', 'Cerrar');
+      this.rollback(subjectId);
+      return;
+    }
+
+    this.studentService.getTeacherBySubject(subjectId).subscribe({
+      next: (teacher) => {
+
+        const teacherId = teacher[0].teacherId;
+
+        // No repetir profesor
+        const exists = this.subjectStudenAssigned.some(
+          (item: any) => item.teacherId === teacherId
+        ) ?? false;
+
+        if (exists) {
+          this._snackbar.open(
+            'No puedes asignar más de una materia con el mismo profesor',
+            'Cerrar',
+            { duration: 4000 }
+          );
+          this.rollback(subjectId);
+          return;
+        }
+
+        // OK → agregar al array local
+        this.subjectStudenAssigned.push({
+          subjectId,
+          teacherId,
+          subjectName: teacher[0].subjectName,
+          teacherName: teacher[0].teacherName
+        });
+
+        console.log('Asignaciones actualizadas:', this.subjectStudenAssigned);
+      }
+    });
+  }
+
+  rollback(subjectId: number) {
+    this.subjectControl.setValue(
+      this.subjectControl.value.filter(
+        (id: string) => id !== subjectId.toString()
+      )
+    );
   }
 
   ngOnDestroy(): void {

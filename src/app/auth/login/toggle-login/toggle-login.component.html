@@ -1,0 +1,13 @@
+<div class="container">
+  <p>Si aun no tienes una cuenta, Registrate aquí</p>
+  <a mat-button type="button" [disabled]="loading" [routerLink]="selectedValue() === 'login-student' ? '/register-student' : '/register-teacher'">Registrarme</a>
+  <mat-button-toggle-group name="fontStyle" aria-label="Font Style" (change)="onToggleChange($event)"
+    [value]="selectedValue()" [disabled]="loading">
+    <mat-button-toggle value="login-student">
+      <mat-icon>school</mat-icon> Soy estudiante
+    </mat-button-toggle>
+    <mat-button-toggle value="login-teacher">
+      <mat-icon>history_edu</mat-icon> Soy profesor
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+</div>

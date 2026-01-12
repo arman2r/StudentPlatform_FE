@@ -5,12 +5,15 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '../../../core/auth/auth.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar'; 
+import { MatIconModule } from '@angular/material/icon';
+import { ToggleLoginComponent } from "../toggle-login/toggle-login.component";
 
 @Component({
   selector: 'app-student',
+  standalone: true,
   imports: [
     MatCardModule,
     MatButtonModule,
@@ -19,9 +22,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     MatFormFieldModule,
     ReactiveFormsModule,
     FormsModule,
-    RouterLink,
-    MatProgressBarModule
-  ],
+    MatProgressBarModule,
+    MatIconModule,
+    ToggleLoginComponent
+],
   templateUrl: './student.component.html',
   styleUrl: './student.component.scss'
 })
